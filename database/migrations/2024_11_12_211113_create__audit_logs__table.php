@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('audit_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->enum('action', ['create_raffle', 'purchase_ticket', 'payment', 'draw_winner', 'prize_delivery', 'cancel_raffle']);
+            $table->enum('action', ['create_raffle', 'purchase_ticket', 'payment', 'draw_winner', 'prize_delivery', 'cancel_raffle', 'edit_raffle', 'user_update', 'user_delete', 'user_create','entry_create', 'entry_update', 'entry_delete', 'error'])->nullable();
             $table->text('details')->nullable();
             $table->timestamps();
         });
