@@ -252,7 +252,7 @@ License: For each use you must have a valid license purchased only from above li
 						<img class="d-none d-lg-block mx-auto w-275px w-md-50 w-xl-500px mb-10 mb-lg-20" src="assets/logos/logo.webp" alt="" />
 						<!--end::Image-->
 						<!--begin::Title-->
-						<h1 class="d-none d-lg-block text-black fs-2qx fw-bolder text-center mb-7">¡Tu oportunidad de ganar, al estilo paisa!</h1>
+						<h1 class="d-none d-lg-block text-black fs-2qx fw-bolder text-center mb-7">¡Es hora de ganar, prueba tu suerte con rifas seguras y premios transparentes!</h1>
 						<!--end::Title-->
 						<!--begin::Text-->
 						<!--end::Text-->
