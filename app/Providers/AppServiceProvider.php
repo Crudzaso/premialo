@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,21 +14,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        if ($this->app->environment('local')) {
-            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
-            $this->app->register(TelescopeServiceProvider::class);
-        }
+        Paginator::useBootstrap();
     }
 
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+
+    public function boot()
     {
-
-        if($this->app->environment('production')) {
-            \URL::forceScheme('https');
+        // Forzar HTTPS
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
         }
-
     }
 }
