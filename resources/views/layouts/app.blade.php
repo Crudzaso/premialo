@@ -1,45 +1,52 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'Mi Aplicación')</title>
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- CSS de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-        <!-- Styles -->
-        @livewireStyles
-    </head>
-    <body class="font-sans antialiased">
-        <x-banner />
-
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
-
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+    @livewireStyles <!-- Estilos de Livewire -->
+</head>
+<body>
+    <div class="min-h-screen bg-light">
+        <header class="bg-dark text-white p-3">
+            <div class="container">
+                <nav class="d-flex justify-content-between">
+                    <div>
+                        <a href="/" class="text-white text-decoration-none me-3">Inicio</a>
+                        @auth
+                            <a href="{{ route('usuarios.index') }}" class="text-white text-decoration-none me-3">Ir a inicio</a>
+                            <a href="{{ route('usuarios.index') }}" class="text-white text-decoration-none">Usuarios</a>
+                        @endauth
                     </div>
-                </header>
-            @endif
+                    <div>
+                        @auth
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-danger">Cerrar Sesión</button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-sm btn-primary">Iniciar Sesión</a>
+                            <a href="{{ route('register') }}" class="btn btn-sm btn-secondary">Registrarse</a>
+                        @endauth
+                    </div>
+                </nav>
+            </div>
+        </header>
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
+        <main class="container mt-5">
+            @yield('content') <!-- Aquí se insertará el contenido de las vistas -->
+        </main>
+    </div>
 
-        @stack('modals')
+    @stack('modals') <!-- Modales opcionales -->
+    @livewireScripts <!-- Scripts de Livewire -->
 
-        @livewireScripts
-    </body>
+    <!-- JS de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

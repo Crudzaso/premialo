@@ -16,7 +16,7 @@ use App\Http\Controllers\UserLotteryController;
 use App\Http\Middleware\VerifyRoleMiddleware;
 
 // Home Route
-Route::get('/', function () {
+Route::get('/usuarios', function () {
     Route::post('login', [AuthController::class, 'login'])->name('login');
 });
 
