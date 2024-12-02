@@ -8,7 +8,6 @@
         "php": "^8.2",
         "irazasyed/larasupport": "^1.1",
         "laravel-lang/lang": "6.0",
-        "laravel/cashier": "*",
         "laravel/framework": "^11.9",
         "laravel/jetstream": "^5.3",
         "laravel/sanctum": "^4.0",
@@ -16,7 +15,7 @@
         "laravel/telescope": "^5.2",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.0",
-        "mercadopago/dx-php": "^3.0",
+        "mercadopago/dx-php": "3.0.8",
         "owen-it/laravel-auditing": "^13.6",
         "spatie/laravel-permission": "^6.9"
     },
@@ -79,7 +78,13 @@
             "php-http/discovery": true
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/mercadopago/dx-php"
+        }
+    ],
+
     "minimum-stability": "dev",
     "prefer-stable": true
-
 }

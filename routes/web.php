@@ -38,6 +38,7 @@ Route::get('/pagar', [MercadoPagoController::class, 'showPaymentForm'])->name('m
 Route::post('/crear-pago', [MercadoPagoController::class, 'createPayment'])->name('mercado_pago.create_payment');
 Route::get('/mercado-pago/callback', [MercadoPagoController::class, 'paymentCallback'])->name('mercado_pago.callback');
 
+
 // User Routes
 Route::resource('usuarios', UserController::class);
 

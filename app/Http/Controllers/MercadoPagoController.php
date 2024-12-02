@@ -20,7 +20,7 @@ class MercadoPagoController extends Controller
         return view('mercado_pago.payment');
     }
 
-    // Crear la preferencia de pago y redirigir a la URL de pago
+    // Crear la preferencia de pago y redirigir al usuario a la URL de pago
     public function createPayment(Request $request)
     {
         $title = $request->input('title');
