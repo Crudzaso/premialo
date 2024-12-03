@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Services\MercadoPagoService;
+use Illuminate\Http\Request;
 
 class MercadoPagoController extends Controller
 {
@@ -17,30 +17,47 @@ class MercadoPagoController extends Controller
     // Mostrar el formulario de pago
     public function showPaymentForm()
     {
-        return view('mercado_pago.payment');
+        return view('mercadopago.payment');
     }
 
-    // Crear la preferencia de pago y redirigir al usuario a la URL de pago
+    // Crear la preferencia de pago
     public function createPayment(Request $request)
     {
-        $title = $request->input('title');
-        $quantity = $request->input('quantity');
-        $price = $request->input('price');
-        $callbackUrl = route('mercado_pago.callback');
+        $items = [
+            [
+                "id" => "1234567890",
+                "title" => "Producto 1",
+                "description" => "Descripción del producto 1",
+                "currency_id" => "BRL",
+                "quantity" => 1,
+                "unit_price" => 100.00
+            ]
+        ];
 
-        // Crear preferencia de pago
-        $paymentUrl = $this->mercadoPagoService->createPaymentPreference($title, $quantity, $price, $callbackUrl);
+        $payer = [
+            "name" => $request->input('name'),
+            "surname" => $request->input('surname'),
+            "email" => $request->input('email'),
+        ];
 
-        // Redirigir al usuario a la URL de pago
-        return redirect()->to($paymentUrl);
+        $preference = $this->mercadoPagoService->createPaymentPreference($items, $payer);
+
+        if ($preference) {
+            return redirect($preference->init_point); // Redirige a MercadoPago para el pago
+        } else {
+            return redirect()->route('mercadopago.failed');
+        }
     }
 
-    // Recibir el callback de MercadoPago
-    public function paymentCallback(Request $request)
+    // Página de éxito del pago
+    public function success()
     {
-        $statusMessage = $this->mercadoPagoService->validatePaymentStatus($request->all());
+        return view('mercadopago.success');
+    }
 
-        // Mostrar el estado del pago en la vista
-        return view('mercado_pago.callback', ['statusMessage' => $statusMessage, 'queryParams' => $request->all()]);
+    // Página de fallo en el pago
+    public function failure()
+    {
+        return view('mercadopago.failure');
     }
 }

@@ -34,9 +34,10 @@ Route::prefix('auth/github')->group(function () {
     Route::get('/callback', [GithubController::class, 'callback'])->name('auth.github.callback');
 });
 
-Route::get('/pagar', [MercadoPagoController::class, 'showPaymentForm'])->name('mercado_pago.payment_form');
-Route::post('/crear-pago', [MercadoPagoController::class, 'createPayment'])->name('mercado_pago.create_payment');
-Route::get('/mercado-pago/callback', [MercadoPagoController::class, 'paymentCallback'])->name('mercado_pago.callback');
+Route::get('mercadopago/pagar', [MercadoPagoController::class, 'showPaymentForm'])->name('mercadopago.payment');
+Route::post('mercadopago/crear-pago', [MercadoPagoController::class, 'createPayment'])->name('mercadopago.createPayment');
+Route::get('mercadopago/success', [MercadoPagoController::class, 'success'])->name('mercadopago.success');
+Route::get('mercadopago/failure', [MercadoPagoController::class, 'failure'])->name('mercadopago.failed');
 
 
 // User Routes
