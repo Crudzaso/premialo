@@ -14,6 +14,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LotteryController;
 use App\Http\Controllers\UserLotteryController;
 use App\Http\Middleware\VerifyRoleMiddleware;
+use App\Http\Controllers\RaffleController;
 
 // Home Route
 Route::get('/', function () {
@@ -38,14 +39,14 @@ Route::resource('usuarios', UserController::class);
 // Authenticated Routes (Protected by Auth Middleware)
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::post('logout', [GoogleController::class, 'logout'])->name('logout');
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
-    Route::get('twofactor', function () { return view('auth.auth-plantilla.two-factor'); })->name('auth.twofactor'); 
-    
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('twofactor', function () { return view('auth.auth-plantilla.two-factor'); })->name('auth.twofactor');
+
     // Admin Routes (Protected by Role Middleware)
     Route::middleware(['role:admin'])->group(function () {
         Route::get('usuarios/eliminados', [UserController::class, 'trashed'])->name('usuarios.trashed');
         Route::post('usuarios/{id}/restaurar', [UserController::class, 'restore'])->name('usuarios.restore');
-        
+
     });
 });
 
@@ -60,3 +61,8 @@ Route::post('new-password', [ResetPasswordController::class, 'reset'])->name('pa
 // Registration Routes
 Route::get('registro', function () { return view('auth.register'); })->name('registro');
 Route::post('registro', [AuthController::class, 'registro'])->name('registro.submit');
+
+
+//Raffle routes
+
+Route::resource('raffles', RaffleController::class);
