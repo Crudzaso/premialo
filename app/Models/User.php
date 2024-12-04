@@ -13,6 +13,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
 
 
 class User extends Authenticatable implements Auditable
@@ -43,4 +44,18 @@ class User extends Authenticatable implements Auditable
     // {
     //     return $this->belongsToMany(Lottery::class, 'lottery_user');
     // }
+
+
+
+    // Relación 1:M con Raffle
+    public function raffles()
+    {
+        return $this->hasMany(Raffle::class);
+    }
+
+    // Relación 1:M con Purchase
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
 }
