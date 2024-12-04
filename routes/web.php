@@ -13,7 +13,9 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LotteryController;
 use App\Http\Controllers\UserLotteryController;
+use App\Http\Controllers\MercadoPagoController;
 use App\Http\Middleware\VerifyRoleMiddleware;
+
 
 // Home Route
 Route::get('/', function () {
@@ -32,20 +34,26 @@ Route::prefix('auth/github')->group(function () {
     Route::get('/callback', [GithubController::class, 'callback'])->name('auth.github.callback');
 });
 
+Route::get('mercadopago/pagar', [MercadoPagoController::class, 'showPaymentForm'])->name('mercadopago.payment');
+Route::post('mercadopago/crear-pago', [MercadoPagoController::class, 'createPayment'])->name('mercadopago.createPayment');
+Route::get('mercadopago/success', [MercadoPagoController::class, 'success'])->name('mercadopago.success');
+Route::get('mercadopago/failure', [MercadoPagoController::class, 'failure'])->name('mercadopago.failed');
+
+
 // User Routes
 Route::resource('usuarios', UserController::class);
 
 // Authenticated Routes (Protected by Auth Middleware)
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::post('logout', [GoogleController::class, 'logout'])->name('logout');
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
-    Route::get('twofactor', function () { return view('auth.auth-plantilla.two-factor'); })->name('auth.twofactor'); 
-    
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('twofactor', function () { return view('auth.auth-plantilla.two-factor'); })->name('auth.twofactor');
+
     // Admin Routes (Protected by Role Middleware)
     Route::middleware(['role:admin'])->group(function () {
         Route::get('usuarios/eliminados', [UserController::class, 'trashed'])->name('usuarios.trashed');
         Route::post('usuarios/{id}/restaurar', [UserController::class, 'restore'])->name('usuarios.restore');
-        
+
     });
 });
 
