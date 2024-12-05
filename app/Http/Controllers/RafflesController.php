@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class RafflesController extends Controller
 {
@@ -11,7 +12,7 @@ class RafflesController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Raffles/Index')
+        return Inertia::render('Raffles/Index');
     }
 
     /**

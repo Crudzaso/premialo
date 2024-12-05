@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RafflesController;
 
 
 Route::get('/', function () {
@@ -29,6 +30,10 @@ Route::middleware('auth')->group(function () {
 Route::resource('usuarios', UserController::class);
 Route::get('usuarios/eliminados', [UserController::class, 'trashed'])->name('usuarios.trashed');
 Route::post('usuarios/{id}/restaurar', [UserController::class, 'restore'])->name('usuarios.restore');
+
+Route::prefix('dashboard')->group(function () {
+    Route::get('loterias',[RafflesController::class, 'index'])->name('loterias.index');
+});
 
 require __DIR__.'/auth.php';
 

@@ -74,7 +74,7 @@ class UserController extends Controller
         } catch (\Exception $e) {
 
             event(new ErrorOccurred('Error en el método show', $e->getMessage()));
-            return redirect()->route('usuarios.index')->with('error', 'Usuario no encontrado.');
+            return redirect()->route('dashboard')->with('error', 'Usuario no encontrado.');
         }
     }
 
@@ -151,10 +151,8 @@ class UserController extends Controller
             $users = User::onlyTrashed()->paginate(10);
             return view('users.trashed', compact('users'));
         } catch (\Exception $e) {
-
             event(new ErrorOccurred('Error en el método trashed', $e->getMessage()));
-
-            return redirect()->route('usuarios.index')->with('error', 'Error al cargar los usuarios eliminados.');
+            return redirect()->route('dashboard')->with('error', 'Error al cargar los usuarios eliminados.');
         }
     }
 

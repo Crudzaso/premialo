@@ -48,10 +48,10 @@ const showingNavigationDropdown = ref(false);
                                 </NavLink>
 
                                 <NavLink
-                                    :href="route('rifas.index')"
-                                    :active="route().current('rifas.index')"
+                                    :href="route('loterias.index')"
+                                    :active="route().current('loterias.index')"
                                 >
-                                    Rifas
+                                    Loterias
                                 </NavLink>
                             </div>
                         </div>
