@@ -35,9 +35,11 @@ class AuthController extends Controller
                 'names' => 'required|string|max:255',
                 'lastnames' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email',
-                'password' => 'required|string|min:6|confirmed', 
+                'password' => 'required|string|min:6|confirmed',
                 'address' => 'required|string|max:255',
             ]);
+
+            dd($validatedData);
 
             $user = User::create([
                 'names' => $validatedData['names'],
@@ -49,13 +51,14 @@ class AuthController extends Controller
 
             $roleId = Role::where('name', 'user')->first()->id;
             $user->roles()->attach($roleId);
-            
+
             Auth::login($user);
 
             event(new UserCreated($user));
 
             return redirect()->route('home')->with('success', 'Registro exitoso!');
         } catch (\Exception $e) {
+            dd($e);
             event(new ErrorOccurred('Error en el registro', $e->getMessage()));
             return redirect()->route('register')->with('error', 'Ocurrió un error al registrar el usuario.');
         }
@@ -79,7 +82,7 @@ class AuthController extends Controller
                 $user = Auth::user();
 
                 event(new UserLogin($user));
-                return redirect()->route('home');  
+                return redirect()->route('home');
             } else {
                 return redirect()->route('login')->with('error', 'Correo electrónico o contraseña incorrectos.');
             }
@@ -87,7 +90,7 @@ class AuthController extends Controller
             event(new ErrorOccurred('Error al iniciar sesión', $e->getMessage()));
             return redirect()->route('login')->with('error', 'Ocurrió un error al iniciar sesión.');
         }
-      
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|min:6',
@@ -104,9 +107,9 @@ class AuthController extends Controller
             $user = Auth::user();
 
             event(new UserLogin($user));
-            return redirect()->route('usuarios.index');  
+            return redirect()->route('usuarios.index');
         } else {
-            
+
         }
         return redirect()->route('login')->with('error', 'Correo electrónico o contraseña incorrectos.');
     }

@@ -2,10 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\URL;
-
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,18 +12,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        Paginator::useBootstrap();
+        //
     }
 
     /**
      * Bootstrap any application services.
      */
-
-    public function boot()
+    public function boot(): void
     {
-        // Forzar HTTPS
-        if ($this->app->environment('production')) {
-            URL::forceScheme('https');
-        }
+        Vite::prefetch(concurrency: 3);
     }
 }
