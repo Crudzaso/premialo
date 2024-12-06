@@ -5,6 +5,7 @@
         "This file is @generated automatically"
     ],
     "content-hash": "07b969efac851cc5b6bc8645fe0268c4",
+
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -3222,6 +3223,7 @@
             },
             "type": "package",
             "extra": {
+
                 "laravel": {
                     "providers": [
                         "OwenIt\\Auditing\\AuditingServiceProvider"
@@ -4788,6 +4790,7 @@
             "homepage": "https://symfony.com",
             "support": {
                 "source": "https://github.com/symfony/error-handler/tree/v7.2.0"
+
             },
             "funding": [
                 {
@@ -5037,6 +5040,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/http-foundation/zipball/e88a66c3997859532bc2ddd6dd8f35aba2711744",
                 "reference": "e88a66c3997859532bc2ddd6dd8f35aba2711744",
+
                 "shasum": ""
             },
             "require": {
@@ -7581,6 +7585,7 @@
                 "source": "https://github.com/laravel/sail"
             },
             "time": "2024-11-27T15:42:28+00:00"
+
         },
         {
             "name": "mockery/mockery",
@@ -7856,6 +7861,7 @@
                 "pestphp/pest-dev-tools": "^3.3.0",
                 "pestphp/pest-plugin-type-coverage": "^3.2.0",
                 "symfony/process": "^7.1.8"
+
             },
             "bin": [
                 "bin/pest"

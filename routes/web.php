@@ -57,7 +57,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     });
 });
 
-
 // Password Reset Routes
 Route::get('reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('auth.reset');
 Route::post('reset', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
