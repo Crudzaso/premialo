@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Services\MercadoPagoService;
 use Illuminate\Http\Request;
-use App\Events\ErrorOccurred;
-use Illuminate\Support\Facades\Log;
 
 class MercadoPagoController extends Controller
 {
@@ -28,43 +26,38 @@ class MercadoPagoController extends Controller
         $items = [
             [
                 "id" => "1234567890",
-                "title" => "Producto 1", 
-                "currency_id" => "COP",  // Moneda de Colombia
+                "title" => "Producto 1",
+                "description" => "Descripción del producto 1",
+                "currency_id" => "COP",
                 "quantity" => 1,
-                "unit_price" => 100.00  // Precio en COP
+                "unit_price" => 1000.00
             ]
         ];
 
         $payer = [
-            "name" => "TESTUSER800659108",  // Nombre del comprador
-            "surname" => "TESTUSER",        // Apellido del comprador
-            "email" => "testuser800659108@test.com", // Correo electrónico ficticio
-            "identification" => [
-                "type" => "CC",  // Tipo de documento para Colombia es CC (Cédula de Ciudadanía)
-                "number" => "123456789"  // Número de cédula ficticio
-            ]
+            "name" => $request->input('name'),
+            "surname" => $request->input('surname'),
+            "email" => $request->input('email'),
         ];
 
         $preference = $this->mercadoPagoService->createPaymentPreference($items, $payer);
 
-        if ($preference) {
-            return redirect($preference->init_point); // Redirige al sandbox de MercadoPago.
+        if (isset($preference->init_point)) {
+            return redirect($preference->init_point);
         } else {
-            Log::error('Mercado Pago error:', ['message' => 'No se pudo crear la preferencia de pago.']);
-            event(new ErrorOccurred('Error al pagar con Mercado Pago', 'No se pudo crear la preferencia.'));
-            return redirect()->route('mercadopago.payment')->with('error', 'Error al crear la preferencia de pago.');
+            return redirect()->route('mercadopago.payment')->with('error', 'No se pudo crear la preferencia de pago.');
         }
     }
 
     // Página de éxito del pago
     public function success()
     {
-        return view('mercadopago.success');
+        return redirect()->route('mercadopago.payment');
     }
 
     // Página de fallo en el pago
     public function failure()
     {
-        return view('mercadopago.failure');
+        return redirect()->route('mercadopago.payment');
     }
 }
