@@ -30,7 +30,7 @@ class MercadoPagoController extends Controller
                 "description" => "Descripción del producto 1",
                 "currency_id" => "COP",
                 "quantity" => 1,
-                "unit_price" => 1000.00
+                "unit_price" => 2000.00
             ]
         ];
 
