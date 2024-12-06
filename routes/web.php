@@ -33,6 +33,7 @@ Route::post('usuarios/{id}/restaurar', [UserController::class, 'restore'])->name
 
 Route::prefix('dashboard')->group(function () {
     Route::get('loterias',[RafflesController::class, 'index'])->name('loterias.index');
+    Route::get('loterias/crear',[RafflesController::class, 'create'])->name('loterias.create');
 });
 
 require __DIR__.'/auth.php';

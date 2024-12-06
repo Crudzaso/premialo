@@ -3,26 +3,32 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Raffles extends Model implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles;
-    use SoftDeletes;
-    use HasApiTokens;
-    use HasProfilePhoto;
-    use TwoFactorAuthenticatable;
-    use \OwenIt\Auditing\Auditable;
+    use HasFactory, SoftDeletes, \OwenIt\Auditing\Auditable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+
     protected $fillable = [
-        'name',
+        'title',
         'description',
-        'game_date',
+        'url_image',
+        'price',
+        'prize',
+        'date_play',
+        'date_end',
         'status',
-        'quantity_numbers',
+        'numbers_quantity',
+        'user_id',
     ];
+
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

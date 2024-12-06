@@ -20,7 +20,7 @@ class RafflesController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Raffles/Create');
     }
 
     /**
